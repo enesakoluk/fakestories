@@ -10,11 +10,10 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True,db_index=True)
     updated_at = models.DateTimeField(auto_now=True,blank=True,null=True,db_index=True)
     #gönderi 
-    #followers
-    #followers
     def count_followers(self):
         #benim takip ettiklerimin sayısı
         return self.following.count()
+
     def count_following(self):
         #beni takip edenlerin sayısı
         return Profile.objects.filter(following=self.user.id).count()
@@ -23,11 +22,10 @@ class Profile(models.Model):
         #benim takip ettiklerimin listesi
         print(self.following.all())
         list=[]
-        
         for obj in self.following.all():  
             list.append(obj.id)
-        # list.append(p.id for p in self.following.all())
         return list
+
     def following_list(self):
         #beni takip edenlerin listesi
         list=[]
