@@ -14,7 +14,7 @@ from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from user.models import Profile
-from user.serializers import ProfileSerializer
+from user.serializers import ProfileSerializer,UserSerializer
 
 
 class RegisterView(generics.CreateAPIView):
@@ -30,9 +30,14 @@ class ProfileViewUpdateDestroyAPIView(APIView):
         except Profile.DoesNotExist:
             raise Http404
     def get(self, request, format=None):
-        snippet = self.get_object()
-        serializer = ProfileSerializer(snippet)
-        return Response(serializer.data)
+        try:
+            snippet = User.objects.get(pk=self.request.user.id)
+            serializer = UserSerializer(snippet)
+            return Response(serializer.data)
+            
+        except Profile.DoesNotExist:
+            raise Http404
+        
     def put(self, request, format=None):
         snippet = self.get_object()
         serializer = ProfileSerializer(snippet, data=request.data)

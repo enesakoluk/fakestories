@@ -33,13 +33,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [ "__all__"]
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     # profile_relate  =UserSerializer()
     class Meta:
         model = Profile
         fields = [ "id","user", 'bio',"website","visible"]
+
+class UserSerializer(serializers.ModelSerializer):
+   
+    profile_relate = ProfileSerializer()
+    class Meta:
+        model = User
+        fields = [ "id",'username', 'email', 'first_name', 'last_name',"profile_relate"]
