@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #app
     "user",
+    "app",
     #mail
     "verify_email.apps.VerifyEmailConfig",
     #token
