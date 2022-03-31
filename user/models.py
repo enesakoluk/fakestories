@@ -5,7 +5,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User,related_name="profile_relate",on_delete=models.CASCADE,db_index=True)
     #following = models.ManyToManyField(User, blank=True, related_name="followers", symmetrical=False)
     bio = models.TextField(max_length=200, blank=True, default="Bio")
-    
+    premium=models.BooleanField(default=False)
     website = models.URLField(max_length=200, blank=True)
     visible=models.BooleanField(default=True,db_index=True)
     created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True,db_index=True)

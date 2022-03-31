@@ -1,6 +1,8 @@
 
 from django.db import models
-
+from user.serializers import UserSerializer
+from rest_framework import serializers
+import json
 # Create your models here.
 from django.contrib.auth.models import User
 class CategoryModel(models.Model):
@@ -22,3 +24,4 @@ class PostModel(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True,db_index=True)
     updated_at = models.DateTimeField(auto_now=True,blank=True,null=True,db_index=True)
+   
