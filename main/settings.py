@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "verify_email.apps.VerifyEmailConfig",
     #token
     'rest_framework_simplejwt',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

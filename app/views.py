@@ -13,6 +13,8 @@ class postlistCreateView(ListCreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = postSerializer
     queryset = PostModel.objects.all()
+    filter_backends = [filters.OrderingFilter,filters.SearchFilter]
+    search_fields = ['title']
 
 
 #creat ozelleşecek

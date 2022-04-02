@@ -1,7 +1,7 @@
 from django.urls import path
 from user.views import  RegisterView
 from rest_framework_simplejwt import views as jwt_views
-from user.views import ProfileViewUpdateDestroyAPIView,followViews
+from user.views import ProfileViewUpdateDestroyAPIView,followViews,profileView,profileGetView
 
 
 
@@ -12,6 +12,8 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='auth_register'),
     path('user/', ProfileViewUpdateDestroyAPIView.as_view()),
     path('follow/<int:pk>', followViews.as_view()),
+    path('profile/', profileView.as_view(), name='profile'),
+    path('profile/<int:pk>', profileGetView.as_view(), name='profile get'),
     
    
     # path('user/', UserView.as_view(), name='auth_register'),

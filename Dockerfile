@@ -19,3 +19,6 @@ EXPOSE 8000
 CMD ["python" ,"manage.py" ,"migrate", "&&","python", "manage.py", "runserver", "0.0.0.0:8000"]
 # docker build . -t test 
 # docker run test
+#docker container ps
+#docker exec -it <container_id> python manage.py createsuperuser
+#python manage.py createsuperuser --email admin@example.com --username admin

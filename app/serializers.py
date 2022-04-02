@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from app.models import PostModel ,CategoryModel
 from django.contrib.auth.models import User
-from user.serializers import UserSerializer
+from user.serializers import UserSerializer,FollowUserSerializer
 
 
 class categorySerializer(serializers.ModelSerializer):
@@ -12,9 +12,9 @@ class categorySerializer(serializers.ModelSerializer):
 
 class postSerializer(serializers.ModelSerializer):
     # user_related=serializers.ReadOnlyField()
-    favori=UserSerializer(many=True, read_only=True)
-    like=UserSerializer(many=True, read_only=True)
-    user=UserSerializer( read_only=True)
+    favori=FollowUserSerializer(many=True, read_only=True)
+    like=FollowUserSerializer(many=True, read_only=True)
+    user=FollowUserSerializer( read_only=True)
     category=categorySerializer(many=True, read_only=True)
     
     class Meta:
