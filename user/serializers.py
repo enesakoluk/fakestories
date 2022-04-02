@@ -4,6 +4,10 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from user.models import Profile,UserFollowing
 from django.contrib.auth.models import User
+
+
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
             required=True,
@@ -41,9 +45,45 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = [ "id","user", 'bio',"website","visible","premium"]
 
-class UserSerializer(serializers.ModelSerializer):
+class FollowUserSerializer(serializers.ModelSerializer):
    
     profile_relate = ProfileSerializer()
     class Meta:
         model = User
         fields = [ "id",'username', 'email', 'first_name', 'last_name',"profile_relate"]
+class FollowersSerializer(serializers.ModelSerializer):
+    user_id=FollowUserSerializer()
+    class Meta:
+        model = UserFollowing
+        fields = [ "id","user_id", ]
+
+
+class FollowingSerializer(serializers.ModelSerializer):
+   
+    following_user_id=FollowUserSerializer()
+    class Meta:
+        model = UserFollowing
+        fields = [ "id","following_user_id", ]
+
+
+
+class miniPostSerializer(serializers.BaseSerializer):
+    def to_representation(self, instance):
+        return {
+            "id":instance.id,
+            'link': instance.link,
+            'title': instance.title,
+            "isVideo":instance.isVideo
+           
+        }
+
+class UserSerializer(serializers.ModelSerializer):
+   
+    profile_relate = ProfileSerializer()
+    followers=FollowersSerializer(many=True, read_only=True)
+    following=FollowingSerializer(many=True, read_only=True)
+    favori_related= miniPostSerializer(many=True, read_only=True)
+    like_related= miniPostSerializer(many=True, read_only=True)
+    class Meta:
+        model = User
+        fields = [ "id",'username', 'email', 'first_name', 'last_name',"profile_relate","following","followers","like_related","favori_related"]

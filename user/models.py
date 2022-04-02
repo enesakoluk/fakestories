@@ -10,30 +10,7 @@ class Profile(models.Model):
     visible=models.BooleanField(default=True,db_index=True)
     created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True,db_index=True)
     updated_at = models.DateTimeField(auto_now=True,blank=True,null=True,db_index=True)
-    #gönderi 
-    # def count_followers(self):
-    #     #benim takip ettiklerimin sayısı
-    #     return self.following.count()
-
-    # def count_following(self):
-    #     #beni takip edenlerin sayısı
-    #     return Profile.objects.filter(following=self.user.id).count()
-
-    # def followers_list(self):
-    #     #benim takip ettiklerimin listesi
-    #     print(self.following.all())
-    #     list=[]
-    #     for obj in self.following.all():  
-    #         list.append(obj.id)
-    #     return list
-
-    # def following_list(self):
-    #     #beni takip edenlerin listesi
-    #     list=[]
-    #     for obj in Profile.objects.filter(following=self.user.id):  
-    #         list.append(obj.user.id)
-    #     return list
-
+   
     def __str__(self):
           return f"{self.user.username} Profile"
 
@@ -43,6 +20,9 @@ class UserFollowing(models.Model):
     following_user_id = models.ForeignKey(User,on_delete=models.CASCADE, related_name="followers",db_index=True)
     confirmed=models.BooleanField(default=True,db_index=True)
     created_at = models.DateTimeField(auto_now_add=True,db_index=True)
+    def save(self, *args, **kwargs):
+        super(UserFollowing, self).save(*args, **kwargs)
+        
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['user_id','following_user_id'],  name="unique_followers")
