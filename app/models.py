@@ -24,4 +24,6 @@ class PostModel(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True,db_index=True)
     updated_at = models.DateTimeField(auto_now=True,blank=True,null=True,db_index=True)
+    class Meta:
+        ordering = ('-created_at',)
    
