@@ -4,17 +4,25 @@ from rest_framework.generics import RetrieveDestroyAPIView,ListCreateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated,IsAdminUser
 from rest_framework import pagination 
 from rest_framework import filters
-
+from rest_framework.views import APIView
 from app.models import CategoryModel,PostModel
 from app.serializers import postSerializer ,categorygetSerializer,categorySerializer
-
+from django.contrib.auth.models import User
+from rest_framework.response import Response
 # Create your views here.
+from django.http import Http404
 class postlistCreateView(ListCreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = postSerializer
     queryset = PostModel.objects.all()
     filter_backends = [filters.OrderingFilter,filters.SearchFilter]
     search_fields = ['title']
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user )
+    def get(self, request, *args, **kwargs):
+
+        return self.list(request, *args, **kwargs)
+    
 
 
 #creat ozelleşecek
@@ -23,13 +31,24 @@ class postGetView(RetrieveDestroyAPIView):
     serializer_class = postSerializer
     queryset = PostModel.objects.all()
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request,pk, *args, **kwargs):
         
         return self.retrieve(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
+    def delete(self, request,pk, *args, **kwargs):
         #buraya sahiplik koyulacak
-        return self.destroy(request, *args, **kwargs)
+        try:
+            post = PostModel.objects.get(pk=pk)
+            if request.user.id==post.user.id:
+               
+                return self.destroy(request, *args, **kwargs)
+            else:
+                return Response(status=404)
+            # return HttpResponse(snippet.following.count())
+            
+        except PostModel.DoesNotExist:
+            raise Http404
+      
 
 
 #Category
@@ -51,3 +70,48 @@ class categoryCreateView(ListCreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = categorySerializer
     queryset = CategoryModel.objects.all()
+
+
+#like
+class likeViews(APIView):
+    
+    def get(self, request,pk, format=None):
+        try:
+            post = PostModel.objects.get(pk=pk)
+            # user = User.objects.get(pk=self.request.user.id)
+            if request.user in post.like.all():
+                post.like.remove(request.user )
+                #unlike
+            else:
+                post.like.add(request.user)
+
+                #like
+            
+            serializer = postSerializer(post)
+            return Response(serializer.data)
+            # return HttpResponse(snippet.following.count())
+            
+        except PostModel.DoesNotExist:
+            raise Http404
+
+class favoriteViews(APIView):
+    
+    def get(self, request,pk, format=None):
+        try:
+            post = PostModel.objects.get(pk=pk)
+            # user = User.objects.get(pk=self.request.user.id)
+            if request.user in post.favori.all():
+                post.favori.remove(request.user )
+                print("silindi")
+                #unlike
+            else:
+                post.favori.add(request.user)
+                print("eklendi")
+                #like
+            
+            serializer = postSerializer(post)
+            return Response(serializer.data)
+            # return HttpResponse(snippet.following.count())
+            
+        except PostModel.DoesNotExist:
+            raise Http404
