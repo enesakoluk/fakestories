@@ -7,7 +7,7 @@ services:
     container_name: Test
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     ports:
-      - 8888:8888 
+      - 8888:8000 
      
        
 networks:
