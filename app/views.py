@@ -1,3 +1,4 @@
+from msilib.schema import File
 from django.shortcuts import render
 
 from rest_framework.generics import RetrieveDestroyAPIView,ListCreateAPIView
@@ -9,7 +10,12 @@ from app.models import CategoryModel,PostModel
 from app.serializers import postSerializer ,categorygetSerializer,categorySerializer
 from django.contrib.auth.models import User
 from rest_framework.response import Response
+#django.core.files.uploadedfile.InMemoryUploadedFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 # Create your views here.
+from publitio import PublitioAPI
+publitio_api = PublitioAPI(key='l3oH2rmMetJp5tpVqgGj', secret='lA00WcRcxfh9otHy0t3mJwv03g7t7t4G')
 from django.http import Http404
 class postlistCreateView(ListCreateAPIView):
     permission_classes = [AllowAny]
@@ -18,7 +24,15 @@ class postlistCreateView(ListCreateAPIView):
     filter_backends = [filters.OrderingFilter,filters.SearchFilter]
     search_fields = ['title']
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user )
+        incoming_data = self.request.data["file"] 
+        if type(incoming_data) is InMemoryUploadedFile:
+            in_mem_data:InMemoryUploadedFile = incoming_data
+            parsed_file:File = in_mem_data.open()
+            test= publitio_api.create_file(file=parsed_file,
+                title='My title',
+                description='My description')
+            print(test['url_short'])
+        serializer.save(user=self.request.user ,link=test['url_short'] )
     def get(self, request, *args, **kwargs):
 
         return self.list(request, *args, **kwargs)
