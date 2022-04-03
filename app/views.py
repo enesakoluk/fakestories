@@ -1,4 +1,4 @@
-from msilib.schema import File
+
 from django.shortcuts import render
 
 from rest_framework.generics import RetrieveDestroyAPIView,ListCreateAPIView
