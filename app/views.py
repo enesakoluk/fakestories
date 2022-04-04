@@ -46,7 +46,18 @@ class postGetView(RetrieveDestroyAPIView):
 
     def get(self, request,pk, *args, **kwargs):
         
-        return self.retrieve(request, *args, **kwargs)
+        try:
+            post = PostModel.objects.get(pk=pk)
+            post.stream += 1
+            post.save()
+               
+            return self.retrieve(request, *args, **kwargs)
+            
+            # return HttpResponse(snippet.following.count())
+            
+        except PostModel.DoesNotExist:
+            raise Http404
+        
 
     def delete(self, request,pk, *args, **kwargs):
         
