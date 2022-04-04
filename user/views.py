@@ -43,6 +43,7 @@ class ProfileViewUpdateDestroyAPIView(APIView):
             raise Http404
         
     def put(self, request, format=None):
+        #TODO: BURADA PROFİLE FOTOSU EKLENECEK GÜNCELLENECEK
         snippet = self.get_object()
         serializer = ProfileSerializer(snippet, data=request.data)
         if serializer.is_valid():
