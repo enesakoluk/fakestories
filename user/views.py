@@ -19,7 +19,8 @@ from django.http import HttpResponse
 from rest_framework import filters
 
 from django_filters.rest_framework import DjangoFilterBackend
-
+from publitio import PublitioAPI
+publitio_api = PublitioAPI(key='l3oH2rmMetJp5tpVqgGj', secret='lA00WcRcxfh9otHy0t3mJwv03g7t7t4G')
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
@@ -43,13 +44,19 @@ class ProfileViewUpdateDestroyAPIView(APIView):
             raise Http404
         
     def put(self, request, format=None):
-        #TODO: BURADA PROFİLE FOTOSU EKLENECEK GÜNCELLENECEK
-        snippet = self.get_object()
-        serializer = ProfileSerializer(snippet, data=request.data)
+       
+        profile= Profile.objects.get(pk=self.request.user.id)
+        incoming_data = self.request.data["file"].open()
+        test= publitio_api.create_file(file=incoming_data,
+            title='My title',
+            description='My description')
+        print(test["url_short"])
+        serializer = ProfileSerializer(profile, data={"profileimage":test["url_short"]} ,partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     def patch(self, request, format=None):
         snippet = self.get_object()
         serializer = ProfileSerializer(snippet, data=request.data ,partial=True)
