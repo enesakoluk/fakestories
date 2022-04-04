@@ -95,3 +95,26 @@ class profileGetView(RetrieveUpdateDestroyAPIView):
     permission_classes = [AllowAny]
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+
+#block
+class blockViews(APIView):
+    
+    def get(self, request,pk, format=None):
+        try:
+            blockpost = User.objects.get(pk=pk)
+            post = Profile.objects.get(pk=self.request.user.id)
+            if blockpost in post.block.all():
+                post.block.remove(blockpost )
+                #unlike
+            else:
+                post.block.add(blockpost)
+
+                #like
+            
+            serializer = ProfileSerializer(post)
+            return Response(serializer.data)
+            # return HttpResponse(snippet.following.count())
+            
+        except Profile.DoesNotExist:
+            raise Http404
