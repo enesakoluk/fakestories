@@ -81,8 +81,18 @@ class CategoryGetView(RetrieveDestroyAPIView):
     serializer_class = categorygetSerializer
     queryset = CategoryModel.objects.all()
 
-    def get(self, request, *args, **kwargs):
-        
+    def get(self, request,pk, *args, **kwargs):
+        try:
+            post = CategoryModel.objects.get(pk=pk)
+            post.stream += 1
+            post.save()
+               
+            return self.retrieve(request, *args, **kwargs)
+            
+            # return HttpResponse(snippet.following.count())
+            
+        except CategoryModel.DoesNotExist:
+            raise Http404
         return self.retrieve(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
