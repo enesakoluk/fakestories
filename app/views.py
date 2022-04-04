@@ -10,9 +10,10 @@ from app.models import CategoryModel,PostModel
 from app.serializers import postSerializer ,categorygetSerializer,categorySerializer
 from django.contrib.auth.models import User
 from rest_framework.response import Response
+from app.filter import PostFilter
 #django.core.files.uploadedfile.InMemoryUploadedFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
-
+from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
 from publitio import PublitioAPI
 publitio_api = PublitioAPI(key='l3oH2rmMetJp5tpVqgGj', secret='lA00WcRcxfh9otHy0t3mJwv03g7t7t4G')
@@ -21,8 +22,9 @@ class postlistCreateView(ListCreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = postSerializer
     queryset = PostModel.objects.all()
-    filter_backends = [filters.OrderingFilter,filters.SearchFilter]
-    search_fields = ['title']
+    filter_backends = [filters.OrderingFilter,filters.SearchFilter,DjangoFilterBackend]
+    search_fields = ['title',"user__username","category__title"]
+    filterset_class = PostFilter
     def perform_create(self, serializer):
         incoming_data = self.request.data["file"].open()
         test= publitio_api.create_file(file=incoming_data,
@@ -30,9 +32,9 @@ class postlistCreateView(ListCreateAPIView):
             description='My description')
         print(test["url_short"])
         serializer.save(user=self.request.user ,link=test["url_short"] )
-    def get(self, request, *args, **kwargs):
+    # def get(self, request, *args, **kwargs):
 
-        return self.list(request, *args, **kwargs)
+    #     return self.list(request, *args, **kwargs)
     
 
 
@@ -47,7 +49,7 @@ class postGetView(RetrieveDestroyAPIView):
         return self.retrieve(request, *args, **kwargs)
 
     def delete(self, request,pk, *args, **kwargs):
-        #buraya sahiplik koyulacak
+        
         try:
             post = PostModel.objects.get(pk=pk)
             if request.user.id==post.user.id:
