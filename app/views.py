@@ -1,4 +1,5 @@
 
+import json
 from django.shortcuts import render
 
 from rest_framework.generics import RetrieveDestroyAPIView,ListCreateAPIView
@@ -17,7 +18,19 @@ from django_filters.rest_framework import DjangoFilterBackend
 # Create your views here.
 from publitio import PublitioAPI
 publitio_api = PublitioAPI(key='l3oH2rmMetJp5tpVqgGj', secret='lA00WcRcxfh9otHy0t3mJwv03g7t7t4G')
+#----
+from BunnyCDN.Storage import Storage 
+from BunnyCDN.CDN import CDN
+import requests
+import uuid
+
+obj_storage = Storage("3c3d09ce-37d1-4978-bccc4fe97f00-5516-40dd","mystories")
+zone="https://uygunsuzad.b-cdn.net/"
+#ftp password + store isimi
+print(obj_storage.GetStoragedObjectsList("."))
+#----
 from django.http import Http404
+
 class postlistCreateView(ListCreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = postSerializer
@@ -27,11 +40,16 @@ class postlistCreateView(ListCreateAPIView):
     filterset_class = PostFilter
     def perform_create(self, serializer):
         incoming_data = self.request.data["file"].open()
-        test= publitio_api.create_file(file=incoming_data,
-            title='My title',
-            description='My description')
-        print(test["url_short"])
-        serializer.save(user=self.request.user ,link=test["url_short"] )
+        myuuid = uuid.uuid4()
+        contenttype=str(self.request.data["file"]).split(".")[-1]
+        filename=str(myuuid)+"."+contenttype
+        response = requests.put(obj_storage.base_url+filename, data=incoming_data, headers=obj_storage.headers)
+        if(response.status_code==201):
+            serializer.save(user=self.request.user ,link=zone+filename )
+           
+            
+       
+        
     # def get(self, request, *args, **kwargs):
 
     #     return self.list(request, *args, **kwargs)
