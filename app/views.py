@@ -11,7 +11,7 @@ from app.models import CategoryModel,PostModel
 from app.serializers import postSerializer ,categorygetSerializer,categorySerializer
 from django.contrib.auth.models import User
 from rest_framework.response import Response
-from app.filter import PostFilter
+from app.filter import PostFilter,categoriFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
 
@@ -117,6 +117,9 @@ class categoryCreateView(ListCreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = categorySerializer
     queryset = CategoryModel.objects.all()
+    filter_backends = [filters.OrderingFilter,filters.SearchFilter,DjangoFilterBackend]
+    search_fields = ['title',"language"]
+    filterset_class = categoriFilter
 
 
 #like
