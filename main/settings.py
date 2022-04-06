@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     #token
     'rest_framework_simplejwt',
     'django_filters',
+    "bootstrap5"
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,9 +138,11 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "keakgamestest@gmail.com" 
-EMAIL_HOST_PASSWORD = ""
-
+EMAIL_HOST_PASSWORD = "Enes.324"
 DEFAULT_FROM_EMAIL = 'keakgamestest@gmail.com'
+
+
+
 
 
 #rest freamwork
