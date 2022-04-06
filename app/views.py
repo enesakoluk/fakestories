@@ -12,23 +12,18 @@ from app.serializers import postSerializer ,categorygetSerializer,categorySerial
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from app.filter import PostFilter
-#django.core.files.uploadedfile.InMemoryUploadedFile
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from django_filters.rest_framework import DjangoFilterBackend
-# Create your views here.
-from publitio import PublitioAPI
-publitio_api = PublitioAPI(key='l3oH2rmMetJp5tpVqgGj', secret='lA00WcRcxfh9otHy0t3mJwv03g7t7t4G')
-#----
-from BunnyCDN.Storage import Storage 
-from BunnyCDN.CDN import CDN
+
+
+#----CDN
 import requests
 import uuid
-
+from BunnyCDN.Storage import Storage 
 obj_storage = Storage("3c3d09ce-37d1-4978-bccc4fe97f00-5516-40dd","mystories")
 zone="https://uygunsuzad.b-cdn.net/"
+#----CDN
 #ftp password + store isimi
-print(obj_storage.GetStoragedObjectsList("."))
-#----
+
 from django.http import Http404
 
 class postlistCreateView(ListCreateAPIView):

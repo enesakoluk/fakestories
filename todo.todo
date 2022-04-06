@@ -1,0 +1,130 @@
+{
+  "todotree": {
+    "tree": [
+      {
+        "key": 1649274414171,
+        "children": [],
+        "todo": {
+          "content": "takip ettiğim kişlerin postlarını filtreleme eklenecek",
+          "id": 1649274414171,
+          "level": "default",
+          "done": false
+        }
+      },
+      {
+        "key": 1649274420560,
+        "children": [],
+        "todo": {
+          "content": "modelllere post kategori user dil seceneği eklenedek",
+          "id": 1649274420560,
+          "level": "default",
+          "done": false
+        }
+      },
+      {
+        "key": 1649274454107,
+        "children": [],
+        "todo": {
+          "content": "dilseceğine gore kategori ve post filteresi eklencek",
+          "id": 1649274454107,
+          "level": "default",
+          "done": false
+        }
+      },
+      {
+        "key": 1649274462795,
+        "children": [],
+        "todo": {
+          "content": "profile photosu cdn eklencek",
+          "id": 1649274462795,
+          "level": "default",
+          "done": true
+        }
+      },
+      {
+        "key": 1649274473314,
+        "children": [],
+        "todo": {
+          "content": "post phototo video cdn eklencek",
+          "id": 1649274473314,
+          "level": "default",
+          "done": false
+        }
+      },
+      {
+        "key": 1649274483783,
+        "children": [],
+        "todo": {
+          "content": ".env yapısı oluşturulacak",
+          "id": 1649274483783,
+          "level": "default",
+          "done": false
+        }
+      },
+      {
+        "key": 1649274484691,
+        "children": [],
+        "todo": {
+          "content": "report model eklencek orayda dil yapısı eklencek wiev yazılacak",
+          "id": 1649274484691,
+          "level": "default",
+          "done": false
+        }
+      },
+      {
+        "key": 1649274485277,
+        "children": [],
+        "todo": {
+          "content": "artısı ****şifre sıfırlama bağlantısı elencek ve tamplete eklecenek oraya",
+          "id": 1649274485277,
+          "level": "default",
+          "done": false
+        }
+      },
+      {
+        "key": 1649274505635,
+        "children": [],
+        "todo": {
+          "content": "admin panel fieldları eklenecek headers düzenlenecek",
+          "id": 1649274505635,
+          "level": "default",
+          "done": false
+        }
+      },
+      {
+        "key": 1649274510921,
+        "children": [],
+        "todo": {
+          "content": "post silme özeliğinde cdn dende silinecek",
+          "id": 1649274510921,
+          "level": "default",
+          "done": false
+        }
+      },
+      {
+        "key": 1649274515666,
+        "children": [],
+        "todo": {
+          "content": "cdn e bişe eklerken istek atılacak",
+          "id": 1649274515666,
+          "level": "default",
+          "done": false
+        }
+      },
+      {
+        "key": 1649274530474,
+        "children": [],
+        "todo": {
+          "content": "mail test edilecek bide",
+          "id": 1649274530474,
+          "level": "default",
+          "done": false
+        }
+      }
+    ],
+    "expandKeys": [],
+    "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
+    "add_mode": "bottom",
+    "virtual": false
+  }
+}

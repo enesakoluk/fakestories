@@ -6,6 +6,7 @@ class Profile(models.Model):
     #following = models.ManyToManyField(User, blank=True, related_name="followers", symmetrical=False)
     bio = models.TextField(max_length=200, blank=True, default="Bio")
     premium=models.BooleanField(default=False)
+    language=models.TextField(max_length=200, blank=True,null=True)
 #----
     profileimage=models.URLField(max_length=200, blank=True)
     block = models.ManyToManyField(User,related_name="block_relate",db_index=True)

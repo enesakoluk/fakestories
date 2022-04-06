@@ -7,7 +7,7 @@ from user.serializers import UserSerializer,FollowUserSerializer
 class categorySerializer(serializers.ModelSerializer):
     class Meta:
              model=CategoryModel
-             fields=("id","title","stream","created_at")
+             fields=("id","title","stream","language","created_at")
 
 
 class postSerializer(serializers.ModelSerializer):
@@ -19,11 +19,11 @@ class postSerializer(serializers.ModelSerializer):
     
     class Meta:
              model=PostModel
-             fields=("id","user","isVideo","link","stream","title","like","category","favori","created_at")
+             fields=("id","user","isVideo","link","language","stream","title","like","category","favori","created_at")
 
 
 class categorygetSerializer(serializers.ModelSerializer):
     category_related=postSerializer(many=True, read_only=True)
     class Meta:
              model=CategoryModel
-             fields=("id","title","stream","created_at","category_related")
+             fields=("id","title","stream","language","created_at","category_related")

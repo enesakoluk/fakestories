@@ -21,6 +21,14 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from publitio import PublitioAPI
 publitio_api = PublitioAPI(key='l3oH2rmMetJp5tpVqgGj', secret='lA00WcRcxfh9otHy0t3mJwv03g7t7t4G')
+#----CDN
+import requests
+import uuid
+from BunnyCDN.Storage import Storage 
+obj_storage = Storage("3c3d09ce-37d1-4978-bccc4fe97f00-5516-40dd","mystories")
+zone="https://uygunsuzad.b-cdn.net/"
+#----CDN
+
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
@@ -47,14 +55,15 @@ class ProfileViewUpdateDestroyAPIView(APIView):
        
         profile= Profile.objects.get(pk=self.request.user.id)
         incoming_data = self.request.data["file"].open()
-        test= publitio_api.create_file(file=incoming_data,
-            title='My title',
-            description='My description')
-        print(test["url_short"])
-        serializer = ProfileSerializer(profile, data={"profileimage":test["url_short"]} ,partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+        myuuid = uuid.uuid4()
+        contenttype=str(self.request.data["file"]).split(".")[-1]
+        filename=str(myuuid)+"."+contenttype
+        response = requests.put(obj_storage.base_url+filename, data=incoming_data, headers=obj_storage.headers)
+        if(response.status_code==201):
+            serializer = ProfileSerializer(profile, data={"profileimage":zone+filename} ,partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def patch(self, request, format=None):
