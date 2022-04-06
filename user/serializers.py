@@ -83,7 +83,7 @@ class UserSerializer(serializers.ModelSerializer):
     following=FollowingSerializer(many=True, read_only=True)
     favori_related= miniPostSerializer(many=True, read_only=True)
     like_related= miniPostSerializer(many=True, read_only=True)
-    user_related= miniPostSerializer(many=True, read_only=True)
+    post_related= miniPostSerializer(many=True, read_only=True)
     class Meta:
         model = User
-        fields = [ "id",'username', 'email', 'first_name', 'last_name',"profile_relate","following","followers","like_related","favori_related","user_related"]
+        fields = [ "id",'username', 'email', 'first_name', 'last_name',"profile_relate","following","followers","like_related","favori_related","post_related"]

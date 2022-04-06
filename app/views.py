@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from app.filter import PostFilter,categoriFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from user.models import UserFollowing
 
 
 #----CDN
@@ -48,7 +49,22 @@ class postlistCreateView(ListCreateAPIView):
     # def get(self, request, *args, **kwargs):
 
     #     return self.list(request, *args, **kwargs)
+class FolowPostViews(APIView):
     
+    def get(self, request, format=None):
+        try:
+            followed_people = UserFollowing.objects.filter(user_id=request.user).values('following_user_id')
+            print(followed_people)
+            stories = PostModel.objects.filter(user__in=followed_people) 
+
+            # post =PostModel.objects.filter(post_related__following__user_id=request.user)
+            print(stories)
+            serializer = postSerializer(stories,many=True)
+            return Response(serializer.data)
+           
+            
+        except PostModel.DoesNotExist:
+            raise Http404    
 
 
 #creat ozelleşecek

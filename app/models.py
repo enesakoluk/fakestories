@@ -14,7 +14,7 @@ class CategoryModel(models.Model):
 
 
 class PostModel(models.Model):
-    user =  models.ForeignKey(User,related_name="user_related",on_delete=models.CASCADE)
+    user =  models.ForeignKey(User,related_name="post_related",on_delete=models.CASCADE)
     isVideo=models.BooleanField(db_index=True)
     link=models.URLField(max_length=200, blank=True)
     stream=models.IntegerField(default=0,db_index=True)
