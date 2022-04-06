@@ -42,27 +42,15 @@ class postlistCreateView(ListCreateAPIView):
         response = requests.put(obj_storage.base_url+filename, data=incoming_data, headers=obj_storage.headers)
         if(response.status_code==201):
             serializer.save(user=self.request.user ,link=zone+filename )
-           
             
-       
-        
-    # def get(self, request, *args, **kwargs):
-
-    #     return self.list(request, *args, **kwargs)
+#takip edilenlerin postları           
 class FolowPostViews(APIView):
-    
     def get(self, request, format=None):
         try:
             followed_people = UserFollowing.objects.filter(user_id=request.user).values('following_user_id')
-            print(followed_people)
             stories = PostModel.objects.filter(user__in=followed_people) 
-
-            # post =PostModel.objects.filter(post_related__following__user_id=request.user)
-            print(stories)
             serializer = postSerializer(stories,many=True)
             return Response(serializer.data)
-           
-            
         except PostModel.DoesNotExist:
             raise Http404    
 
