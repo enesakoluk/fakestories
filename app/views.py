@@ -101,6 +101,15 @@ class CategoryGetView(RetrieveDestroyAPIView):
     def get(self, request,pk, *args, **kwargs):
         try:
             post = CategoryModel.objects.get(pk=pk)
+            # if 'isVideo' in self.request.query_params:
+            #     value=self.request.query_params["isVideo"]
+            #     print(value)
+            #     test=PostModel.objects.filter(category=post,isVideo=value)
+            #     print(test)
+            # else:
+            #     print("asd")
+                
+            # post = CategoryModel.objects.get(pk=pk)
             post.stream += 1
             post.save()
                

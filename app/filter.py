@@ -5,7 +5,7 @@ class PostFilter(django_filters.FilterSet):
 
     class Meta:
         model = PostModel
-        fields = ['title',"isVideo","user__username","user__id","language"]
+        fields = ['title',"isVideo","user__username","user__id","language","category__id","category__title"]
 class categoriFilter(django_filters.FilterSet):
     # name = django_filters.CharFilter(lookup_expr='iexact')
 
