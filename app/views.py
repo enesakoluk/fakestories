@@ -47,9 +47,17 @@ class postlistCreateView(ListCreateAPIView):
 class FolowPostViews(APIView):
     def get(self, request, format=None):
         try:
-            followed_people = UserFollowing.objects.filter(user_id=request.user).values('following_user_id')
-            stories = PostModel.objects.filter(user__in=followed_people) 
-            serializer = postSerializer(stories,many=True)
+            if 'isVideo' in self.request.query_params:
+                value=self.request.query_params["isVideo"]
+                followed_people = UserFollowing.objects.filter(user_id=request.user).values('following_user_id')
+                stories = PostModel.objects.filter(user__in=followed_people,isVideo=value.capitalize()) 
+                serializer = postSerializer(stories,many=True)
+               
+            else:
+                print("---------")
+                followed_people = UserFollowing.objects.filter(user_id=request.user).values('following_user_id')
+                stories = PostModel.objects.filter(user__in=followed_people) 
+                serializer = postSerializer(stories,many=True)
             return Response(serializer.data)
         except PostModel.DoesNotExist:
             raise Http404    
