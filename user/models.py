@@ -15,9 +15,10 @@ class Profile(models.Model):
     visible=models.BooleanField(default=True,db_index=True)
     created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True,db_index=True)
     updated_at = models.DateTimeField(auto_now=True,blank=True,null=True,db_index=True)
-   
+    def username(self):
+        return self.user.username
     def __str__(self):
-          return f"{self.user.username} Profile"
+          return f"{self.user.username}"
 
 
 class UserFollowing(models.Model):
