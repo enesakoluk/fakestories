@@ -22,7 +22,7 @@ from rest_framework_simplejwt.views import (
 from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('verification/', include('verify_email.urls')),
+    # path('verification/', include('verify_email.urls')),
     # path('accounts/', include('django.contrib.auth.urls')),
 
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),

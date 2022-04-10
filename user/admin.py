@@ -1,6 +1,7 @@
 from django.contrib import admin
 from user.models import Profile,UserFollowing
 # Register your models here.
+admin.site.site_header = 'Story admin'
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ( 'id','user',"username","bio","language","profileimage","premium")
     search_fields =  ('user__username', )

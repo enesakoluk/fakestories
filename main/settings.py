@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "user",
     "app",
     #mail
-    "verify_email.apps.VerifyEmailConfig",
+    # "verify_email.apps.VerifyEmailConfig",
     #token
     'rest_framework_simplejwt',
     'django_filters',
