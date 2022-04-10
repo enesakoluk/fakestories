@@ -7,8 +7,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated,IsAdminUser
 from rest_framework import pagination 
 from rest_framework import filters
 from rest_framework.views import APIView
-from app.models import CategoryModel,PostModel
-from app.serializers import postSerializer ,categorygetSerializer,categorySerializer
+from app.models import CategoryModel,PostModel,ReportModel
+from app.serializers import ReportSerializer, postSerializer ,categorygetSerializer,categorySerializer
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from app.filter import PostFilter,categoriFilter
@@ -185,4 +185,22 @@ class favoriteViews(APIView):
             # return HttpResponse(snippet.following.count())
             
         except PostModel.DoesNotExist:
+            raise Http404
+
+#report
+class ReportViews(APIView):
+    
+    def post(self, request,pk, format=None):
+        try:
+            print()
+            reportuser_ = User.objects.get(pk=pk)
+            print(reportuser_)
+            user_ = User.objects.get(pk=self.request.user.id)
+            print(user_)
+            serializer = ReportModel(user=user_,reportuser=reportuser_,comment="",language="")
+            serializer.save()  #
+            return Response(data={"status":"201","report":"ok"},status=201)
+            # return HttpResponse(snippet.following.count())
+            
+        except User.DoesNotExist:
             raise Http404
