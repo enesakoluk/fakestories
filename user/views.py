@@ -58,6 +58,14 @@ class ProfileViewUpdateDestroyAPIView(APIView):
         myuuid = uuid.uuid4()
         contenttype=str(self.request.data["file"]).split(".")[-1]
         filename=str(myuuid)+"."+contenttype
+      
+        if(zone in profile.profileimage):
+            print("base_url içinde var silme işlemi yoksa silinmeyecek")
+            linkurl=profile.profileimage.split("/")[-1]
+            print(profile.profileimage.split("/")[-1])
+            response = requests.delete(obj_storage.base_url+linkurl, headers=obj_storage.headers)
+        else:
+            print("bişe yapılmadı")
         response = requests.put(obj_storage.base_url+filename, data=incoming_data, headers=obj_storage.headers)
         if(response.status_code==201):
             serializer = ProfileSerializer(profile, data={"profileimage":zone+filename} ,partial=True)

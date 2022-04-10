@@ -91,7 +91,12 @@ class postGetView(RetrieveDestroyAPIView):
             if request.user.id==post.user.id:
                 linkurl=post.link.split("/")[-1]
                 print(post.link.split("/")[-1])
-                requests.delete(obj_storage.base_url+linkurl, headers=obj_storage.headers)
+                response = requests.delete(obj_storage.base_url+linkurl, headers=obj_storage.headers)
+                if(response.status_code==200):
+                    print("silindi post cdn")
+                else:
+                    print("post cdn silinemedi")
+            #    TODO: burada cdn silinecek
                 return self.destroy(request, *args, **kwargs)
             else:
                 return Response(status=404)
