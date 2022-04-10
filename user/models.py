@@ -9,7 +9,7 @@ class Profile(models.Model):
     language=models.TextField(max_length=200, blank=True,null=True)
 #----
     profileimage=models.URLField(max_length=200, blank=True)
-    block = models.ManyToManyField(User,related_name="block_relate",db_index=True)
+    block = models.ManyToManyField(User,related_name="block_relate",db_index=True,blank=True)
 #----
     website = models.URLField(max_length=200, blank=True)
     visible=models.BooleanField(default=True,db_index=True)
