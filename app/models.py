@@ -11,7 +11,9 @@ class CategoryModel(models.Model):
     language=models.TextField(max_length=200, blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True,db_index=True)
     updated_at = models.DateTimeField(auto_now=True,blank=True,null=True,db_index=True)
-
+    # BURADAN EMİN DEĞİLİM HATA CIKARSA KAPACAM
+    def __str__(self):
+        return self.title
 
 class PostModel(models.Model):
     user =  models.ForeignKey(User,related_name="post_related",on_delete=models.CASCADE)
@@ -28,4 +30,16 @@ class PostModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True,blank=True,null=True,db_index=True)
     class Meta:
         ordering = ('-created_at',)
+
+class ReportModel(models.Model):
+    user =  models.ForeignKey(User,related_name="report_related",on_delete=models.CASCADE)
+    reportuser=models.ForeignKey(User,related_name="reportuser_related",on_delete=models.CASCADE)
+    comment=models.TextField(max_length=400, blank=True,null=True)
+    language=models.TextField(max_length=200, blank=True,null=True)
+    isactive=models.BooleanField(db_index=True,default=True)
+    created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True,db_index=True)
+    updated_at = models.DateTimeField(auto_now=True,blank=True,null=True,db_index=True)
+    class Meta:
+        ordering = ('-created_at',)
+   
    
