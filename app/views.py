@@ -89,7 +89,9 @@ class postGetView(RetrieveDestroyAPIView):
         try:
             post = PostModel.objects.get(pk=pk)
             if request.user.id==post.user.id:
-               
+                linkurl=post.link.split("/")[-1]
+                print(post.link.split("/")[-1])
+                requests.delete(obj_storage.base_url+linkurl, headers=obj_storage.headers)
                 return self.destroy(request, *args, **kwargs)
             else:
                 return Response(status=404)
