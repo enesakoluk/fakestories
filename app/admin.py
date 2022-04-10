@@ -22,6 +22,8 @@ admin.site.register(CategoryModel,CategoryAdmin)
 
 class ReportModelAdmin(admin.ModelAdmin):
     list_display = ( 'id','user',"reportuser","comment","language","isactive","created_at")
+    search_fields =  ('user__username',"reportuser__username" )
+    list_filter = ('language', 'isactive')
 
 admin.site.register(ReportModel,ReportModelAdmin)
 

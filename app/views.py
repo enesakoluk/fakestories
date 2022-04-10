@@ -191,16 +191,18 @@ class favoriteViews(APIView):
 class ReportViews(APIView):
     
     def post(self, request,pk, format=None):
-        try:
-            print()
-            reportuser_ = User.objects.get(pk=pk)
-            print(reportuser_)
-            user_ = User.objects.get(pk=self.request.user.id)
-            print(user_)
-            serializer = ReportModel(user=user_,reportuser=reportuser_,comment="",language="")
-            serializer.save()  #
-            return Response(data={"status":"201","report":"ok"},status=201)
-            # return HttpResponse(snippet.following.count())
-            
+        try:           
+            if 'comment' in self.request.data:
+                if 'language' in self.request.data: 
+                    reportuser_ = User.objects.get(pk=pk)
+                    user_ = User.objects.get(pk=self.request.user.id)
+                    serializer = ReportModel(user=user_,reportuser=reportuser_,comment=self.request.data["comment"],language=self.request.data["language"])
+                    serializer.save()  #
+                    return Response(data={"status":"201","report":"ok"},status=201)
+                else:
+                    return Response(data={"status":"404","report":"language is empty"},status=404)
+                    
+            else:
+                return Response(data={"status":"404","report":"comment is empty"},status=404)     
         except User.DoesNotExist:
             raise Http404
