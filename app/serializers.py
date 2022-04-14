@@ -15,7 +15,7 @@ class postSerializer(serializers.ModelSerializer):
     
     class Meta:
              model=PostModel
-             fields=("id","user","isVideo","link","language","stream","title","like","category","favori","created_at")
+             fields=("id","user","isVideo","link","language","description","stream","title","like","category","favori","created_at")
 
 class categorygetSerializer(serializers.ModelSerializer):
     category_related=postSerializer(many=True, read_only=True)

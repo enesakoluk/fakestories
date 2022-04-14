@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User,related_name="profile_relate",on_delete=models.CASCADE,db_index=True)
     #following = models.ManyToManyField(User, blank=True, related_name="followers", symmetrical=False)
-    bio = models.TextField(max_length=200, blank=True, default="Bio")
+    bio = models.TextField(default="",max_length=200, blank=True, default="Bio")
     premium=models.BooleanField(default=False)
-    language=models.TextField(max_length=200, blank=True,null=True)
+    language=models.TextField(default="en_EN",max_length=200, blank=True,null=True)
 #----
     profileimage=models.URLField(max_length=200, blank=True)
     block = models.ManyToManyField(User,related_name="block_relate",db_index=True,blank=True)
