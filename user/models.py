@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User,related_name="profile_relate",on_delete=models.CASCADE,db_index=True)
     #following = models.ManyToManyField(User, blank=True, related_name="followers", symmetrical=False)
-    bio = models.TextField(default="",max_length=200, blank=True, default="Bio")
+    bio = models.TextField(default="",max_length=200, blank=True)
     premium=models.BooleanField(default=False)
     language=models.TextField(default="en_EN",max_length=200, blank=True,null=True)
 #----
