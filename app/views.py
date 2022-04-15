@@ -49,12 +49,12 @@ class postlistCreateView(ListCreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
 # ---costum
-        print(serializer.data["id"])
+    
         if 'categorys' in self.request.data:
             user = Profile.objects.get(pk=self.request.user.id)
             post = PostModel.objects.get(pk=serializer.data["id"])
-            categorylisttitle=json.loads(str(self.request.data["categorys"]))
-            print(categorylisttitle[0])
+            categorylisttitle=json.loads(self.request.data["categorys"])
+            print(categorylisttitle)
             for getitle in categorylisttitle:
                 print(getitle)
                 categoryfil=CategoryModel.objects.filter(title=getitle)
