@@ -15,7 +15,7 @@ from app.filter import PostFilter,categoriFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from user.models import UserFollowing
 from user.models import Profile
-
+from rest_framework import status
 #----CDN
 import requests
 import uuid
@@ -42,7 +42,33 @@ class postlistCreateView(ListCreateAPIView):
         response = requests.put(obj_storage.base_url+filename, data=incoming_data, headers=obj_storage.headers)
         if(response.status_code==201):
             serializer.save(user=self.request.user ,link=zone+filename )
-
+           
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+# ---costum
+        print(serializer.data["id"])
+        if 'categorys' in self.request.data:
+            user = Profile.objects.get(pk=self.request.user.id)
+            post = PostModel.objects.get(pk=serializer.data["id"])
+            categorylisttitle=json.loads(str(self.request.data["categorys"]))
+            print(categorylisttitle[0])
+            for getitle in categorylisttitle:
+                print(getitle)
+                categoryfil=CategoryModel.objects.filter(title=getitle)
+                print(categoryfil.count())
+                if(categoryfil.count() !=0):
+                    model=categoryfil.first()
+                    post.category.add(model)
+                else:
+                    serializerr = CategoryModel(language=user.language,title=getitle)
+                    serializerr.save()
+                    model=serializerr
+                    post.category.add(model)
+# ---costum
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 #takip edilenlerin postları
 class FolowPostViews(APIView):
     def get(self, request, format=None):

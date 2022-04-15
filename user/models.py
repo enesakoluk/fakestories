@@ -6,6 +6,8 @@ class Profile(models.Model):
     #following = models.ManyToManyField(User, blank=True, related_name="followers", symmetrical=False)
     bio = models.TextField(default="",max_length=200, blank=True)
     premium=models.BooleanField(default=False)
+
+    download=models.IntegerField(default=0,db_index=True)
     language=models.TextField(default="en_EN",max_length=200, blank=True,null=True)
 #----
     profileimage=models.URLField(default="https://i.pinimg.com/564x/c9/e3/e8/c9e3e810a8066b885ca4e882460785fa.jpg",max_length=200, blank=True)

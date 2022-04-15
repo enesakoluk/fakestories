@@ -42,7 +42,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     # profile_relate  =UserSerializer()
     class Meta:
         model = Profile
-        fields = [ "id","user","block","profileimage","language", 'bio',"website","visible","premium"]
+        fields = [ "id","user","block","profileimage","language", 'bio',"website","visible","premium","download"]
 
 class FollowUserSerializer(serializers.ModelSerializer):
    
