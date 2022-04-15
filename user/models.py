@@ -8,7 +8,7 @@ class Profile(models.Model):
     premium=models.BooleanField(default=False)
     language=models.TextField(default="en_EN",max_length=200, blank=True,null=True)
 #----
-    profileimage=models.URLField(max_length=200, blank=True)
+    profileimage=models.URLField(default="https://i.pinimg.com/564x/c9/e3/e8/c9e3e810a8066b885ca4e882460785fa.jpg",max_length=200, blank=True)
     block = models.ManyToManyField(User,related_name="block_relate",db_index=True,blank=True)
 #----
     website = models.URLField(max_length=200, blank=True)

@@ -2,7 +2,7 @@ from django.urls import path
 from user.views import  RegisterView
 from rest_framework_simplejwt import views as jwt_views
 from user.views import ProfileViewUpdateDestroyAPIView
-from app.views import postlistCreateView,postGetView,CategoryGetView,categoryCreateView,likeViews,favoriteViews,FolowPostViews,ReportViews
+from app.views import postlistCreateView,postGetView,CategoryGetView,categoryCreateView,likeViews,favoriteViews,FolowPostViews,ReportViews,PostAddCategoryViews
 
 
 
@@ -16,5 +16,6 @@ urlpatterns = [
     path('favorite/<int:pk>', favoriteViews.as_view()),
     path('followingpost/', FolowPostViews.as_view()),
     path('report/<int:pk>', ReportViews.as_view()),
+    path('postcategoryadd/<int:pk>', PostAddCategoryViews.as_view()),
    
           ]
