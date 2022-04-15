@@ -1,4 +1,4 @@
-FROM python:3.10.0
+FROM python:3.9.10
 # FROM python:3.8.3-alpine
 # FROM python:3.6-slim
 # FROM python:3.9-alpine
