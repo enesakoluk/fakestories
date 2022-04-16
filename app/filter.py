@@ -11,4 +11,4 @@ class categoriFilter(django_filters.FilterSet):
 
     class Meta:
         model = CategoryModel
-        fields = ['title',"language","stream"]
+        fields = ['title',"language","stream","isVideo"]
