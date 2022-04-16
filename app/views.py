@@ -172,7 +172,7 @@ class categoryCreateView(ListCreateAPIView):
     serializer_class = categorySerializer
     queryset = CategoryModel.objects.all()
     filter_backends = [filters.OrderingFilter,filters.SearchFilter,DjangoFilterBackend]
-    search_fields = ['title',"language"]
+    search_fields = ['title',"language","isVideo"]
     filterset_class = categoriFilter
 
 class PostAddCategoryViews(APIView):

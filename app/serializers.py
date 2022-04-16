@@ -5,7 +5,7 @@ from user.serializers import UserSerializer,FollowUserSerializer
 class categorySerializer(serializers.ModelSerializer):
     class Meta:
              model=CategoryModel
-             fields=("id","title","stream","language","created_at")
+             fields=("id","title","stream","language","isVideo","imagelink","created_at")
 class postSerializer(serializers.ModelSerializer):
     # user_related=serializers.ReadOnlyField()
     favori=FollowUserSerializer(many=True, read_only=True)
@@ -21,7 +21,7 @@ class categorygetSerializer(serializers.ModelSerializer):
     category_related=postSerializer(many=True, read_only=True)
     class Meta:
              model=CategoryModel
-             fields=("id","title","stream","language","created_at","category_related")
+             fields=("id","title","stream","language","isVideo","imagelink","created_at","category_related")
 class ReportSerializer(serializers.ModelSerializer):
     class Meta:
              model=ReportModel

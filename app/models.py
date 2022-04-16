@@ -9,6 +9,10 @@ class CategoryModel(models.Model):
     title= models.TextField(max_length=200, blank=True)
     stream=models.IntegerField(default=0,db_index=True)
     language=models.TextField(default="en_EN",max_length=200, blank=True)
+    # ----
+    isVideo=models.BooleanField(db_index=True)
+    imagelink=models.URLField(default="https://i.pinimg.com/564x/16/93/d2/1693d2df0f81fbeb9095e99d33c3c3fd.jpg",max_length=600, blank=True)
+    # ----
     created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True,db_index=True)
     updated_at = models.DateTimeField(auto_now=True,blank=True,null=True,db_index=True)
     # BURADAN EMİN DEĞİLİM HATA CIKARSA KAPACAM
