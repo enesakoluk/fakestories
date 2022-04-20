@@ -20,8 +20,10 @@ from rest_framework import status
 import requests
 import uuid
 from BunnyCDN.Storage import Storage
-obj_storage = Storage("3c3d09ce-37d1-4978-bccc4fe97f00-5516-40dd","mystories")
-zone="https://uygunsuzad.b-cdn.net/"
+obj_storage = Storage("51106d1f-cd35-4a01-b9495fa782f6-230d-4c00","mystories22")
+zone="https://mysitesname.b-cdn.net//"
+# obj_storage = Storage("3c3d09ce-37d1-4978-bccc4fe97f00-5516-40dd","mystories")
+# zone="https://uygunsuzad.b-cdn.net/"
 #----CDN
 #ftp password + store isimi
 

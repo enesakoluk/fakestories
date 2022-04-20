@@ -25,8 +25,10 @@ publitio_api = PublitioAPI(key='l3oH2rmMetJp5tpVqgGj', secret='lA00WcRcxfh9otHy0
 import requests
 import uuid
 from BunnyCDN.Storage import Storage 
-obj_storage = Storage("3c3d09ce-37d1-4978-bccc4fe97f00-5516-40dd","mystories")
-zone="https://uygunsuzad.b-cdn.net/"
+obj_storage = Storage("51106d1f-cd35-4a01-b9495fa782f6-230d-4c00","mystories22")
+zone="https://mysitesname.b-cdn.net//"
+# obj_storage = Storage("3c3d09ce-37d1-4978-bccc4fe97f00-5516-40dd","mystories")
+# zone="https://uygunsuzad.b-cdn.net/"
 #----CDN
 
 class RegisterView(generics.CreateAPIView):
